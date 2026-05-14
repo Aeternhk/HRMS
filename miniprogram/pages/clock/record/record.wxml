@@ -1,0 +1,77 @@
+<view class="record-container">
+  <!-- 月份选择 -->
+  <view class="month-picker">
+    <picker mode="date" fields="month" value="{{currentMonth}}" bindchange="onMonthChange">
+      <view class="picker-content">
+        <text class="month-text">{{currentMonth}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 月度统计卡片 -->
+  <view class="stats-card">
+    <view class="stats-header">
+      <text class="stats-title">月度统计</text>
+    </view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-value">{{monthStats.totalDays}}</text>
+        <text class="stat-label">应出勤</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value text-success">{{monthStats.normalDays}}</text>
+        <text class="stat-label">正常</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value text-warning">{{monthStats.lateDays}}</text>
+        <text class="stat-label">迟到</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value text-error">{{monthStats.absentDays}}</text>
+        <text class="stat-label">缺卡</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡记录列表 -->
+  <view class="record-list">
+    <view class="list-header">
+      <text class="header-title">打卡明细</text>
+    </view>
+
+    <view class="record-items">
+      <view class="record-item" wx:for="{{records}}" wx:key="id">
+        <view class="record-date">
+          <text class="day">{{item.day}}</text>
+          <text class="week">{{item.weekday}}</text>
+        </view>
+        <view class="record-detail">
+          <view class="time-row">
+            <text class="time-label">上班</text>
+            <text class="time-value">{{item.checkInTime || '--:--'}}</text>
+            <text class="status-tag {{item.checkInStatus === '正常' ? 'normal' : item.checkInStatus === '迟到' ? 'late' : 'absent'}}">
+              {{item.checkInStatus || '缺卡'}}
+            </text>
+          </view>
+          <view class="time-row">
+            <text class="time-label">下班</text>
+            <text class="time-value">{{item.checkOutTime || '--:--'}}</text>
+            <text class="status-tag {{item.checkOutStatus === '正常' ? 'normal' : item.checkOutStatus === '早退' ? 'early' : 'absent'}}">
+              {{item.checkOutStatus || '缺卡'}}
+            </text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="load-more" wx:if="{{hasMore}}" bindtap="onLoadMore">
+      <text wx:if="{{!loading}}">点击加载更多</text>
+      <text wx:else>加载中...</text>
+    </view>
+    <view class="no-more" wx:else>
+      <text>没有更多记录了</text>
+    </view>
+  </view>
+</view>

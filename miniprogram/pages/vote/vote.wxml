@@ -1,0 +1,97 @@
+<view class="vote-container">
+  <!-- 标签切换 -->
+  <view class="tab-bar">
+    <view
+      class="tab-item {{activeTab === 'ongoing' ? 'active' : ''}}"
+      data-tab="ongoing"
+      bindtap="onTabChange"
+    >
+      <text>进行中</text>
+      <view class="tab-line" wx:if="{{activeTab === 'ongoing'}}"></view>
+    </view>
+    <view
+      class="tab-item {{activeTab === 'ended' ? 'active' : ''}}"
+      data-tab="ended"
+      bindtap="onTabChange"
+    >
+      <text>已结束</text>
+      <view class="tab-line" wx:if="{{activeTab === 'ended'}}"></view>
+    </view>
+  </view>
+
+  <!-- 投票列表 -->
+  <view class="vote-list">
+
+    <!-- 进行中 -->
+    <view wx:if="{{activeTab === 'ongoing'}}">
+      <view
+        class="vote-card"
+        wx:for="{{ongoingVotes}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToDetail"
+      >
+        <view class="vote-header">
+          <view class="vote-type-tag">{{item.typeName || '单选'}}</view>
+          <view class="vote-status-tag {{item.hasVoted ? 'tag-voted' : 'tag-pending'}}">
+            {{item.hasVoted ? '已参与' : '待参与'}}
+          </view>
+        </view>
+        <text class="vote-title">{{item.title}}</text>
+        <text class="vote-desc" wx:if="{{item.description}}">{{item.description}}</text>
+        <view class="vote-footer">
+          <text class="vote-time">截止：{{item.endTime}}</text>
+          <text class="vote-count">{{item.participantCount || 0}} 人参与</text>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{ongoingVotes.length === 0 && !loading}}">
+        <text class="empty-icon">🗳️</text>
+        <text class="empty-text">暂无进行中的投票</text>
+      </view>
+    </view>
+
+    <!-- 已结束 -->
+    <view wx:if="{{activeTab === 'ended'}}">
+      <view
+        class="vote-card ended-card"
+        wx:for="{{endedVotes}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToDetail"
+      >
+        <view class="vote-header">
+          <view class="vote-type-tag">{{item.typeName || '单选'}}</view>
+          <view class="vote-status-tag tag-ended">已结束</view>
+        </view>
+        <text class="vote-title">{{item.title}}</text>
+        <view class="vote-footer">
+          <text class="vote-time">结束：{{item.endTime}}</text>
+          <text class="vote-count">{{item.participantCount || 0}} 人参与</text>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{endedVotes.length === 0 && !loading}}">
+        <text class="empty-icon">🗳️</text>
+        <text class="empty-text">暂无已结束的投票</text>
+      </view>
+    </view>
+
+    <!-- 加载中 -->
+    <view class="loading-row" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <!-- 加载更多 -->
+    <view
+      class="load-more"
+      wx:if="{{hasMore && !loading && (ongoingVotes.length > 0 || endedVotes.length > 0)}}"
+      bindtap="onLoadMore"
+    >
+      <text>点击加载更多</text>
+    </view>
+
+  </view>
+</view>

@@ -1,0 +1,351 @@
+/* ================================================
+   我的页面样式 - 修复版
+   ================================================ */
+
+.profile-container {
+  min-height: 100vh;
+  background: #f2f3f7;
+  padding: 24rpx;
+  padding-bottom: 56rpx;
+}
+
+/* ===== 用户信息卡片 ===== */
+.user-card {
+  background: linear-gradient(135deg, #0052D9 0%, #1a6df0 60%, #003BB3 100%);
+  border-radius: 24rpx;
+  padding: 36rpx 36rpx 24rpx;
+  margin-bottom: 24rpx;
+}
+
+/* 顶部行：头像 + 姓名列 + 编辑按钮 */
+.user-top-row {
+  display: flex;
+  align-items: center;
+  /* 重要：不用 absolute，改为 flex 布局，彻底消除排版错乱 */
+}
+
+.user-avatar {
+  width: 104rpx;
+  height: 104rpx;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 28rpx;
+}
+
+.avatar-text {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.user-name-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.user-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  /* 防止过长挤压布局 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-dept {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 编辑按钮 —— flex 项，不再 absolute */
+.edit-btn {
+  flex-shrink: 0;
+  padding: 12rpx 24rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 24rpx;
+  margin-left: 16rpx;
+}
+
+.edit-text {
+  font-size: 24rpx;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* 底部工号行 */
+.user-meta-row {
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid rgba(255, 255, 255, 0.15);
+}
+
+.meta-chip {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ===== 工资条卡片 ===== */
+.salary-card {
+  background: linear-gradient(135deg, #FFFBEF 0%, #FFF3CC 100%);
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid #FFE082;
+}
+
+.salary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.salary-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.salary-month {
+  font-size: 24rpx;
+  color: #888;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.salary-amount {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16rpx;
+}
+
+.amount-label {
+  font-size: 24rpx;
+  color: #888;
+  margin-bottom: 6rpx;
+}
+
+.amount-value {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #D97706;
+  line-height: 1.1;
+}
+
+.salary-detail {
+  display: flex;
+  gap: 32rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.detail-item {
+  font-size: 24rpx;
+  color: #888;
+}
+
+/* 工资条 - 空状态 */
+.salary-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 12rpx;
+}
+
+.empty-hint {
+  font-size: 24rpx;
+  color: #0052D9;
+  margin-top: 8rpx;
+}
+
+/* ===== 申请记录概览 ===== */
+.apply-overview-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx 36rpx 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.aoc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.aoc-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.aoc-link {
+  font-size: 24rpx;
+  color: #0052D9;
+}
+
+.aoc-grid {
+  display: flex;
+  align-items: center;
+}
+
+.aoc-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.aoc-sep {
+  width: 1rpx;
+  height: 52rpx;
+  background: #eee;
+}
+
+.aoc-num {
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+.aoc-ok  { color: #00A870; }
+.aoc-err { color: #E34D59; }
+
+.aoc-label {
+  font-size: 24rpx;
+  color: #aaa;
+}
+
+/* ===== 功能菜单 ===== */
+.menu-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 8rpx 0;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.menu-icon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.apply-icon   { background: #E3F2FD; }
+.settings-icon { background: #F3E5F5; }
+
+.menu-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.menu-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.menu-desc {
+  font-size: 24rpx;
+  color: #aaa;
+}
+
+.menu-badge {
+  min-width: 36rpx;
+  height: 36rpx;
+  background: #E34D59;
+  color: #ffffff;
+  font-size: 20rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10rpx;
+  margin-right: 16rpx;
+}
+
+.menu-arrow {
+  font-size: 44rpx;
+  color: #ccc;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.menu-divider {
+  height: 1rpx;
+  background: #f5f5f5;
+  margin: 0 32rpx;
+}
+
+/* ===== 退出登录 ===== */
+.logout-section {
+  margin-bottom: 28rpx;
+}
+
+.logout-btn {
+  width: 100%;
+  height: 96rpx;
+  background: #ffffff;
+  color: #E34D59;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 20rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.logout-btn::after {
+  border: none;
+}
+
+/* 版本 */
+.version-info {
+  text-align: center;
+  padding: 16rpx;
+}
+
+.version-info text {
+  font-size: 22rpx;
+  color: #bbb;
+}

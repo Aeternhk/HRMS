@@ -1,0 +1,84 @@
+<view class="clock-container">
+
+  <!-- ===== 顶部时间区 ===== -->
+  <view class="header-section">
+    <text class="header-date">{{today}}</text>
+    <text class="header-time">{{currentTime}}</text>
+  </view>
+
+  <!-- ===== 打卡主体卡片 ===== -->
+  <view class="clock-main-card">
+
+    <!-- 打卡按钮（根据当前时段动态显示） -->
+    <view class="clock-btn-wrap">
+      <!-- 外圈波纹：未全部完成时显示 -->
+      <view class="ripple-ring" wx:if="{{!allDone}}"></view>
+
+      <view
+        class="clock-btn
+          {{allDone ? 'btn-done' : currentRecord.checkedIn && !currentRecord.checkedOut ? 'btn-checkout' : 'btn-checkin'}}
+          {{loading ? 'btn-loading' : ''}}"
+        bindtap="{{allDone ? '' : currentRecord.checkedIn && !currentRecord.checkedOut ? 'onCheckOut' : 'onCheckIn'}}"
+      >
+        <text class="btn-main-text">
+          {{loading ? '打卡中'
+            : allDone ? '已完成'
+              : (currentRecord.checkedIn && !currentRecord.checkedOut) ? (currentShift.name || '') + '下班'
+                : (currentShift.name || '') + '上班'}}
+        </text>
+        <text class="btn-sub-text" wx:if="{{!loading && !allDone}}">
+          {{(currentRecord.checkedIn && !currentRecord.checkedOut)
+            ? ((currentShift.offTime || '--:--') + ' 下班')
+            : ((currentShift.workTime || '--:--') + ' 上班')}}
+        </text>
+      </view>
+    </view>
+
+    <!-- 多时段打卡记录列表 -->
+    <view class="shift-record-list">
+      <block wx:for="{{shiftRecords}}" wx:key="shiftCode">
+        <view class="shift-item">
+          <view class="si-header">
+            <text class="si-name">{{item.shiftName}}</text>
+            <text class="si-time-range">{{item.workTime}} - {{item.offTime}}</text>
+          </view>
+
+          <!-- 上班 -->
+          <view class="si-row">
+            <text class="si-label">上班</text>
+            <text class="si-val {{item.checkedIn ? 'val-active' : ''}}">{{item.checkInTime || '--:--'}}</text>
+            <view class="record-status-tag tag-late" wx:if="{{item.checkInStatus === '迟到'}}">迟到</view>
+            <view class="record-status-tag tag-normal" wx:elif="{{item.checkedIn}}">正常</view>
+            <view class="si-dot {{item.checkedIn ? 'dot-in' : ''}}"></view>
+          </view>
+
+          <!-- 下班 -->
+          <view class="si-row">
+            <text class="si-label">下班</text>
+            <text class="si-val {{item.checkedOut ? 'val-active' : ''}}">{{item.checkOutTime || '--:--'}}</text>
+            <view class="record-status-tag tag-early" wx:if="{{item.checkOutStatus === '早退'}}">早退</view>
+            <view class="record-status-tag tag-normal" wx:elif="{{item.checkedOut}}">正常</view>
+            <view class="si-dot {{item.checkedOut ? 'dot-out' : ''}}"></view>
+          </view>
+        </view>
+
+        <view class="shift-sep" wx:if="{{index < shiftRecords.length - 1}}"></view>
+      </block>
+    </view>
+  </view>
+
+  <!-- ===== 位置卡片 ===== -->
+  <view class="info-card">
+    <view class="info-row">
+      <text class="info-icon">📍</text>
+      <text class="info-label">打卡位置</text>
+      <text class="refresh-link" bindtap="refreshLocation">刷新</text>
+    </view>
+    <text class="info-address">{{location.address}}</text>
+    <view class="in-range-tag">
+      <text class="in-range-dot">●</text>
+      <text class="in-range-text">已进入打卡范围</text>
+    </view>
+  </view>
+
+</view>

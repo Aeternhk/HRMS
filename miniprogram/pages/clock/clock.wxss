@@ -1,0 +1,271 @@
+/* ================================================
+   打卡页样式 - 多时段版本
+   ================================================ */
+
+.clock-container {
+  min-height: 100vh;
+  background: #f2f3f7;
+  padding-bottom: 180rpx;
+}
+
+/* ===== 顶部时间 ===== */
+.header-section {
+  background: linear-gradient(135deg, #0052D9 0%, #1a6df0 60%, #003BB3 100%);
+  padding: 48rpx 40rpx 96rpx;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.header-date {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 12rpx;
+}
+
+.header-time {
+  display: block;
+  font-size: 88rpx;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'DIN Alternate', 'Helvetica Neue', monospace;
+  letter-spacing: 4rpx;
+  line-height: 1;
+}
+
+/* ===== 打卡主卡片 ===== */
+.clock-main-card {
+  margin: -52rpx 28rpx 24rpx;
+  background: #ffffff;
+  border-radius: 28rpx;
+  padding: 48rpx 32rpx 36rpx;
+  box-shadow:
+    0 -4rpx 20rpx rgba(0, 82, 217, 0.08),
+    0 8rpx 40rpx rgba(0, 82, 217, 0.12);
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== 打卡按钮区 ===== */
+.clock-btn-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 52rpx;
+}
+
+.ripple-ring {
+  position: absolute;
+  width: 360rpx;
+  height: 360rpx;
+  border-radius: 50%;
+  background: rgba(0, 82, 217, 0.06);
+  z-index: 0;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%       { transform: scale(1.08); opacity: 0.3; }
+}
+
+.clock-btn {
+  width: 260rpx;
+  height: 260rpx;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  gap: 0;
+  padding: 0;
+}
+
+.clock-btn:active {
+  transform: scale(0.94);
+  transition: transform 0.15s ease;
+}
+
+.btn-checkin {
+  background: linear-gradient(145deg, #0065ff 0%, #0052D9 50%, #003BB3 100%);
+  box-shadow:
+    0 0 0 8rpx rgba(0, 82, 217, 0.12),
+    0 20rpx 60rpx rgba(0, 82, 217, 0.45);
+}
+
+.btn-checkout {
+  background: linear-gradient(145deg, #00c67c 0%, #00A870 50%, #007f54 100%);
+  box-shadow:
+    0 0 0 8rpx rgba(0, 168, 112, 0.12),
+    0 20rpx 60rpx rgba(0, 168, 112, 0.45);
+}
+
+.btn-done {
+  background: linear-gradient(145deg, #aaa 0%, #888 100%);
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.15);
+}
+
+.btn-loading { opacity: 0.75; }
+
+/* 按钮主文字 —— 默认不加底部间距（完成态无副文字时居中） */
+.btn-main-text {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  text-align: center;
+}
+
+/* 按钮副文字（班次提示） —— 有副文字时用margin-top拉开间距 */
+.btn-sub-text {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.72);
+  text-align: center;
+  line-height: 1;
+  margin-top: 10rpx;
+}
+
+/* ===== 多时段打卡记录列表 ===== */
+.shift-record-list {
+  margin-top: 8rpx;
+}
+
+.shift-item {
+  background: #f7f8fc;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx 16rpx;
+}
+
+.si-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.si-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.si-time-range {
+  font-size: 22rpx;
+  color: #aaa;
+}
+
+.si-row {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 0;
+  position: relative;
+}
+
+.si-label {
+  font-size: 24rpx;
+  color: #888;
+  width: 64rpx;
+  flex-shrink: 0;
+}
+
+.si-val {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #bbb;
+  font-family: 'DIN Alternate', monospace;
+  flex: 1;
+  margin-left: 16rpx;
+}
+
+.val-active { color: #1a1a1a; }
+
+/* 状态标签 */
+.record-status-tag {
+  font-size: 18rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 16rpx;
+  font-weight: 500;
+  margin-left: auto;
+  margin-right: 40rpx;
+  flex-shrink: 0;
+}
+
+.tag-normal { background: #E8F7F0; color: #00A870; }
+.tag-late   { background: #FFF3E0; color: #ED7B2F; }
+.tag-early  { background: #FFF0F0; color: #E34D59; }
+
+/* 时段小圆点 */
+.si-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #ddd;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -7rpx;
+}
+.dot-in  { background: #0052D9; }
+.dot-out { background: #00A870; }
+
+/* 时段分隔线 */
+.shift-sep {
+  height: 12rpx;
+}
+
+/* ===== 信息卡片（位置） ===== */
+.info-card {
+  margin: 0 28rpx 48rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx 36rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.info-icon {
+  font-size: 30rpx;
+  margin-right: 10rpx;
+}
+
+.info-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  flex: 1;
+}
+
+.refresh-link {
+  font-size: 24rpx;
+  color: #0052D9;
+}
+
+.info-address {
+  display: block;
+  font-size: 26rpx;
+  color: #555;
+  margin-bottom: 12rpx;
+  line-height: 1.5;
+}
+
+.in-range-tag {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.in-range-dot { font-size: 18rpx; color: #00A870; }
+.in-range-text { font-size: 22rpx; color: #00A870; }
+
+

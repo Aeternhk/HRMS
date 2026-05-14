@@ -1,0 +1,110 @@
+<view class="salary-container">
+  <!-- 月份选择 -->
+  <view class="month-tabs">
+    <scroll-view scroll-x class="month-scroll">
+      <view 
+        class="month-item {{currentSalary.month === item.month ? 'active' : ''}}"
+        wx:for="{{salaryList}}"
+        wx:key="month"
+        data-index="{{index}}"
+        bindtap="onMonthSelect"
+      >
+        <text class="month-text">{{item.month}}月</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 工资详情 -->
+  <view class="salary-detail-card" wx:if="{{currentSalary}}">
+    <view class="salary-header">
+      <text class="salary-month">{{currentSalary.year}}年{{currentSalary.month}}月</text>
+      <text class="salary-status {{currentSalary.status}}">{{currentSalary.statusName}}</text>
+    </view>
+
+    <view class="salary-total">
+      <text class="total-label">实发工资</text>
+      <text class="total-value">¥{{currentSalary._fmtNetSalary}}</text>
+    </view>
+
+    <!-- 应发工资 -->
+    <view class="salary-section">
+      <view class="section-header">
+        <text class="section-title">应发工资</text>
+        <text class="section-amount">¥{{currentSalary._fmtGrossSalary}}</text>
+      </view>
+      <view class="section-list">
+        <view class="section-item">
+          <text class="item-name">基本工资</text>
+          <text class="item-value">¥{{currentSalary._fmtBaseSalary}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.positionAllowance > 0}}">
+          <text class="item-name">岗位津贴</text>
+          <text class="item-value">¥{{currentSalary._fmtPositionAllowance}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.performanceSalary > 0}}">
+          <text class="item-name">绩效工资</text>
+          <text class="item-value">¥{{currentSalary._fmtPerformanceSalary}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.overtimePay > 0}}">
+          <text class="item-name">加班费</text>
+          <text class="item-value">¥{{currentSalary._fmtOvertimePay}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.fullAttendanceBonus > 0}}">
+          <text class="item-name">全勤奖</text>
+          <text class="item-value">¥{{currentSalary._fmtFullAttendanceBonus}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.otherBonus > 0}}">
+          <text class="item-name">其他补贴</text>
+          <text class="item-value">¥{{currentSalary._fmtOtherBonus}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 应扣工资 -->
+    <view class="salary-section">
+      <view class="section-header">
+        <text class="section-title">应扣工资</text>
+        <text class="section-amount deduction">-¥{{currentSalary._fmtDeductions}}</text>
+      </view>
+      <view class="section-list">
+        <view class="section-item">
+          <text class="item-name">社保个人部分</text>
+          <text class="item-value deduction">-¥{{currentSalary._fmtSocialInsurance}}</text>
+        </view>
+        <view class="section-item">
+          <text class="item-name">公积金个人部分</text>
+          <text class="item-value deduction">-¥{{currentSalary._fmtHousingFund}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.lateDeduction > 0}}">
+          <text class="item-name">迟到扣款</text>
+          <text class="item-value deduction">-¥{{currentSalary._fmtLateDeduction}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.leaveDeduction > 0}}">
+          <text class="item-name">请假扣款</text>
+          <text class="item-value deduction">-¥{{currentSalary._fmtLeaveDeduction}}</text>
+        </view>
+        <view class="section-item" wx:if="{{currentSalary.otherDeduction > 0}}">
+          <text class="item-name">其他扣款</text>
+          <text class="item-value deduction">-¥{{currentSalary._fmtOtherDeduction}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="salary-remark" wx:if="{{currentSalary.remark}}">
+      <text class="remark-label">备注：</text>
+      <text class="remark-content">{{currentSalary.remark}}</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{salaryList.length === 0 && !loading}}">
+    <text class="empty-icon">💰</text>
+    <text class="empty-text">暂无工资记录</text>
+  </view>
+
+  <!-- 提示 -->
+  <view class="tips-section">
+    <text class="tips-text">如有疑问，请联系财务部</text>
+  </view>
+</view>

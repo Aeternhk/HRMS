@@ -1,0 +1,42 @@
+.detail-container {
+  padding: 40rpx 36rpx;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.notice-title {
+  display: block;
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin-bottom: 16rpx;
+}
+
+.notice-time {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 32rpx;
+}
+
+.divider {
+  height: 1rpx;
+  background: #f0f0f0;
+  margin-bottom: 32rpx;
+}
+
+.notice-content {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.8;
+}
+
+.loading-wrap, .empty {
+  display: flex;
+  justify-content: center;
+  padding: 120rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

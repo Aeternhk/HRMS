@@ -1,0 +1,6 @@
+.custom-tab-bar {
+  --td-tab-bar-bg-color: #ffffff;
+  --td-tab-bar-border-color: #e7e7e7;
+  --td-tab-bar-item-color: #999999;
+  --td-tab-bar-item-active-color: #0052D9;
+}

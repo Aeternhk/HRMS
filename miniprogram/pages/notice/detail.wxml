@@ -1,0 +1,14 @@
+<view class="detail-container">
+  <view wx:if="{{loading}}" class="loading-wrap">
+    <text class="loading-text">加载中...</text>
+  </view>
+  <view wx:elif="{{notice}}">
+    <text class="notice-title">{{notice.title}}</text>
+    <text class="notice-time">{{notice.publishTime}}</text>
+    <view class="divider"></view>
+    <text class="notice-content">{{notice.content}}</text>
+  </view>
+  <view wx:else class="empty">
+    <text>公告不存在或已删除</text>
+  </view>
+</view>

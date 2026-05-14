@@ -1,0 +1,89 @@
+<view class="info-container">
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 个人信息 -->
+  <block wx:if="{{!loading && userInfo}}">
+    <!-- 基本信息 -->
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">基本信息</text>
+      </view>
+      <view class="info-list">
+        <view class="info-item">
+          <text class="info-label">姓名</text>
+          <text class="info-value">{{userInfo.name}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">工号</text>
+          <text class="info-value">{{userInfo.employeeNo}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">性别</text>
+          <text class="info-value">{{userInfo.gender === 'M' ? '男' : '女'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">手机号</text>
+          <text class="info-value">{{userInfo._maskedPhone}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">身份证号</text>
+          <text class="info-value">{{userInfo._maskedIdCard}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 工作信息 -->
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">工作信息</text>
+      </view>
+      <view class="info-list">
+        <view class="info-item">
+          <text class="info-label">所属部门</text>
+          <text class="info-value">{{userInfo.departmentName}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">岗位</text>
+          <text class="info-value">{{userInfo.positionName}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">职级</text>
+          <text class="info-value">{{userInfo.levelName}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">入职日期</text>
+          <text class="info-value">{{userInfo.entryDate}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">员工状态</text>
+          <text class="info-value status-{{userInfo.status}}">{{userInfo.statusName}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 紧急联系人 -->
+    <view class="info-card" wx:if="{{userInfo.emergencyContact}}">
+      <view class="card-header">
+        <text class="card-title">紧急联系人</text>
+      </view>
+      <view class="info-list">
+        <view class="info-item">
+          <text class="info-label">联系人</text>
+          <text class="info-value">{{userInfo.emergencyContact}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">联系电话</text>
+          <text class="info-value">{{userInfo._maskedEmergencyPhone}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提示信息 -->
+    <view class="tips-section">
+      <text class="tips-text">如需修改个人信息，请联系人事部门</text>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,163 @@
+<view class="apply-container">
+  <!-- 标签切换 -->
+  <view class="tab-bar">
+    <view 
+      class="tab-item {{activeTab === 'leave' ? 'active' : ''}}"
+      data-tab="leave"
+      bindtap="onTabChange"
+    >
+      <text>请假申请</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'overtime' ? 'active' : ''}}"
+      data-tab="overtime"
+      bindtap="onTabChange"
+    >
+      <text>加班申请</text>
+    </view>
+    <view 
+      class="tab-item {{activeTab === 'history' ? 'active' : ''}}"
+      data-tab="history"
+      bindtap="onTabChange"
+    >
+      <text>申请记录</text>
+    </view>
+  </view>
+
+  <!-- 请假申请 -->
+  <view class="form-container" wx:if="{{activeTab === 'leave'}}">
+    <view class="form-card">
+      <view class="form-item">
+        <text class="form-label">请假类型</text>
+        <picker bindchange="onLeaveTypeChange" value="0" range="{{leaveTypes}}" range-key="label">
+          <view class="picker-value">
+            {{leaveTypeLabel}}
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">开始日期</text>
+        <picker mode="date" value="{{leaveForm.startDate}}" bindchange="onStartDateChange">
+          <view class="picker-value">
+            {{leaveForm.startDate}}
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">结束日期</text>
+        <picker mode="date" value="{{leaveForm.endDate}}" bindchange="onEndDateChange">
+          <view class="picker-value">
+            {{leaveForm.endDate}}
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">请假天数</text>
+        <text class="days-value">{{leaveForm.days}} 天</text>
+      </view>
+
+      <view class="form-item textarea-item">
+        <text class="form-label">请假原因</text>
+        <textarea 
+          class="form-textarea" 
+          placeholder="请输入请假原因"
+          value="{{leaveForm.reason}}"
+          bindinput="onLeaveReasonInput"
+        />
+      </view>
+    </view>
+
+    <button 
+      class="submit-btn {{submitting ? 'loading' : ''}}"
+      bindtap="submitLeave"
+      disabled="{{submitting}}"
+    >
+      {{submitting ? '提交中...' : '提交请假申请'}}
+    </button>
+  </view>
+
+  <!-- 加班申请 -->
+  <view class="form-container" wx:if="{{activeTab === 'overtime'}}">
+    <view class="form-card">
+      <view class="form-item">
+        <text class="form-label">加班日期</text>
+        <picker mode="date" value="{{overtimeForm.date}}" bindchange="onOvertimeDateChange">
+          <view class="picker-value">
+            {{overtimeForm.date}}
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">开始时间</text>
+        <picker mode="time" value="{{overtimeForm.startTime}}" bindchange="onOvertimeStartChange">
+          <view class="picker-value">
+            {{overtimeForm.startTime || '请选择'}}
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">结束时间</text>
+        <picker mode="time" value="{{overtimeForm.endTime}}" bindchange="onOvertimeEndChange">
+          <view class="picker-value">
+            {{overtimeForm.endTime || '请选择'}}
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">加班时长</text>
+        <text class="days-value">{{overtimeForm.hours}} 小时</text>
+      </view>
+
+      <view class="form-item textarea-item">
+        <text class="form-label">加班原因</text>
+        <textarea 
+          class="form-textarea" 
+          placeholder="请输入加班原因"
+          value="{{overtimeForm.reason}}"
+          bindinput="onOvertimeReasonInput"
+        />
+      </view>
+    </view>
+
+    <button 
+      class="submit-btn {{submitting ? 'loading' : ''}}"
+      bindtap="submitOvertime"
+      disabled="{{submitting}}"
+    >
+      {{submitting ? '提交中...' : '提交加班申请'}}
+    </button>
+  </view>
+
+  <!-- 申请记录 -->
+  <view class="history-container" wx:if="{{activeTab === 'history'}}">
+    <view class="history-list" wx:if="{{applications.length > 0}}">
+      <view class="history-item" wx:for="{{applications}}" wx:key="id">
+        <view class="history-header">
+          <text class="history-type">{{item._typeText}}</text>
+          <text class="history-status {{item.status}}">{{item._statusText}}</text>
+        </view>
+        <view class="history-content">
+          <text class="history-detail">{{item.detail}}</text>
+          <text class="history-date">{{item.createTime}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{applications.length === 0 && !loading}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无申请记录</text>
+    </view>
+  </view>
+</view>

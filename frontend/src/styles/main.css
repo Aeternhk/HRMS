@@ -1,0 +1,119 @@
+:root {
+  --primary-color: #0052d9;
+  --border-radius-base: 6px;
+  --border-radius-card: 12px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition-fast: 200ms ease;
+  --transition-normal: 300ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* TDesign 主题色覆盖 */
+.t-button--variant-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.t-button--variant-primary:hover {
+  background-color: #0041b9 !important;
+  border-color: #0041b9 !important;
+}
+
+/* 登录页背景渐变 */
+.login-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 卡片悬浮效果 */
+.card-hover {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 渐变文字 */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 响应式布局辅助类 */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gap-sm { gap: 8px; }
+.gap-md { gap: 16px; }
+.gap-lg { gap: 24px; }
+.gap-xl { gap: 32px; }
+
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+}
+
+/* TDesign Dialog 全局样式 - 修复滚动问题 */
+.t-dialog {
+  max-width: 95vw !important;
+  width: auto !important;
+}
+
+.t-dialog__body {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden !important;
+}
+
+/* 弹窗内容容器 */
+.t-dialog__body > * {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* 弹窗表单样式 - 确保不超出容器 */
+.t-dialog .t-form {
+  width: 100% !important;
+}
+
+.t-dialog .t-form__item {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.t-dialog .t-input,
+.t-dialog .t-select,
+.t-dialog .t-textarea,
+.t-dialog .t-date-picker,
+.t-dialog .t-cascader,
+.t-dialog .t-input-number {
+  box-sizing: border-box !important;
+}

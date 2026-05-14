@@ -1,0 +1,63 @@
+<view class="result-container">
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 投票结果 -->
+  <block wx:if="{{!loading && voteDetail}}">
+    <!-- 投票信息 -->
+    <view class="vote-info-card">
+      <view class="vote-type-tag">{{voteDetail._typeName}}</view>
+      <text class="vote-title">{{voteDetail.title}}</text>
+      <view class="vote-meta">
+        <text class="meta-item">总票数：{{totalVotes}}</text>
+        <text class="meta-item" wx:if="{{voteDetail.participantCount}}">{{voteDetail.participantCount}}人参与</text>
+      </view>
+    </view>
+
+    <!-- 结果卡片（合并图表+排名） -->
+    <view class="result-card">
+      <view class="result-header">
+        <text class="result-title">📊 投票结果</text>
+      </view>
+
+      <!-- 结果列表（按票数降序排列） -->
+      <view class="result-list">
+        <view class="result-item {{index < 3 ? 'top-rank' : ''}}" wx:for="{{resultData}}" wx:key="id">
+          <!-- 排名 + 选项名 -->
+          <view class="result-left">
+            <view class="rank-badge {{index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : ''}}">
+              {{index + 1}}
+            </view>
+            <text class="result-option-name">{{item.content}}</text>
+          </view>
+
+          <!-- 进度条 + 统计 -->
+          <view class="result-bar-area">
+            <view class="result-bar-track">
+              <view
+                class="result-bar-fill {{index === 0 ? 'bar-gold' : ''}}"
+                style="width: {{item.percentage > 0 ? item.percentage : (item.voteCount > 0 ? 5 : 1)}}%;"
+              ></view>
+            </view>
+            <view class="result-stats">
+              <text class="result-votes">{{item.voteCount}}票</text>
+              <text class="result-percent">{{item.percentage}}%</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 无数据提示 -->
+      <view class="empty-result" wx:if="{{resultData.length === 0}}">
+        <text>暂无投票数据</text>
+      </view>
+    </view>
+
+    <!-- 返回按钮 -->
+    <view class="back-section">
+      <button class="back-btn" bindtap="goBack">返回投票列表</button>
+    </view>
+  </block>
+</view>

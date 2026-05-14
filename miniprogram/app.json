@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/clock/clock",
+    "pages/clock/record/record",
+    "pages/vote/vote",
+    "pages/vote/detail/detail",
+    "pages/vote/result/result",
+    "pages/profile/profile",
+    "pages/profile/info/info",
+    "pages/profile/salary/salary",
+    "pages/profile/apply/apply",
+    "pages/profile/settings/settings",
+    "pages/notice/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0052D9",
+    "navigationBarTitleText": "HRMS",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#0052D9",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/clock/clock",
+        "text": "打卡"
+      },
+      {
+        "pagePath": "pages/vote/vote",
+        "text": "投票"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,108 @@
+<view class="profile-container">
+
+  <!-- ===== 用户信息卡片 ===== -->
+  <view class="user-card">
+    <!-- 顶部行：头像 + 姓名 + 编辑按钮 -->
+    <view class="user-top-row">
+      <view class="user-avatar">
+        <text class="avatar-text">{{userInfo.name ? userInfo.name[0] : '用'}}</text>
+      </view>
+      <view class="user-name-col">
+        <text class="user-name">{{userInfo.name || '员工'}}</text>
+        <text class="user-dept" wx:if="{{userInfo.departmentName || userInfo.positionName}}">
+          {{userInfo.departmentName || ''}}{{userInfo.departmentName && userInfo.positionName ? '  ·  ' : ''}}{{userInfo.positionName || ''}}
+        </text>
+      </view>
+      <view class="edit-btn" bindtap="goToInfo">
+        <text class="edit-text">编辑</text>
+      </view>
+    </view>
+    <!-- 底部：工号 + 邮箱等附加信息 -->
+    <view class="user-meta-row" wx:if="{{userInfo.employeeNo}}">
+      <text class="meta-chip">🪪 工号：{{userInfo.employeeNo}}</text>
+    </view>
+  </view>
+
+  <!-- ===== 工资条卡片（始终显示） ===== -->
+  <view class="salary-card" bindtap="goToSalary" wx:if="{{salaryLoaded}}">
+    <!-- 有数据 -->
+    <block wx:if="{{latestSalary}}">
+      <view class="salary-header">
+        <text class="salary-title">💰 最新工资条</text>
+        <text class="salary-month">{{latestSalary.month}} 月</text>
+      </view>
+      <view class="salary-amount">
+        <text class="amount-label">实发工资</text>
+        <text class="amount-value">¥{{latestSalary._fmtNetSalary}}</text>
+      </view>
+      <view class="salary-detail">
+        <text class="detail-item">应发：¥{{latestSalary._fmtGrossSalary}}</text>
+        <text class="detail-item">应扣：¥{{latestSalary._fmtDeductions}}</text>
+      </view>
+    </block>
+    <!-- 无数据空状态 -->
+    <view wx:else class="salary-empty">
+      <text class="salary-title">💰 工资条</text>
+      <text class="empty-text">暂无工资记录</text>
+      <text class="empty-hint">查看历史工资 ›</text>
+    </view>
+  </view>
+
+  <!-- ===== 申请记录概览（替换原来的本月考勤） ===== -->
+  <view class="apply-overview-card">
+    <view class="aoc-header">
+      <text class="aoc-title">我的申请</text>
+      <text class="aoc-link" bindtap="goToApply">查看全部 ›</text>
+    </view>
+    <view class="aoc-grid">
+      <view class="aoc-item" bindtap="goToApply">
+        <text class="aoc-num">{{pendingApplications || 0}}</text>
+        <text class="aoc-label">待审批</text>
+      </view>
+      <view class="aoc-sep"></view>
+      <view class="aoc-item" bindtap="goToApply">
+        <text class="aoc-num aoc-ok">{{approvedApplications || 0}}</text>
+        <text class="aoc-label">已通过</text>
+      </view>
+      <view class="aoc-sep"></view>
+      <view class="aoc-item" bindtap="goToApply">
+        <text class="aoc-num aoc-err">{{rejectedApplications || 0}}</text>
+        <text class="aoc-label">未通过</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 功能菜单 ===== -->
+  <view class="menu-card">
+    <view class="menu-item" bindtap="goToApply">
+      <view class="menu-icon apply-icon">📝</view>
+      <view class="menu-content">
+        <text class="menu-title">请假 / 加班申请</text>
+        <text class="menu-desc">提交请假、加班申请</text>
+      </view>
+      <view class="menu-badge" wx:if="{{pendingApplications > 0}}">{{pendingApplications}}</view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-divider"></view>
+
+    <view class="menu-item" bindtap="goToSettings">
+      <view class="menu-icon settings-icon">⚙️</view>
+      <view class="menu-content">
+        <text class="menu-title">设置</text>
+        <text class="menu-desc">修改密码、关于我们</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- ===== 退出登录 ===== -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
+
+  <view class="version-info">
+    <text>HRMS 人力资源管理系统 v1.0.0</text>
+  </view>
+
+</view>

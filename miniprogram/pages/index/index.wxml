@@ -1,0 +1,138 @@
+<view class="index-container">
+
+  <!-- ===== 顶部 Header ===== -->
+  <view class="header-section">
+    <view class="header-content">
+      <view class="header-left">
+        <text class="greeting">你好，{{userInfo.name || '员工'}} 👋</text>
+        <text class="department">{{userInfo.departmentName || ''}}</text>
+      </view>
+      <view class="header-right">
+        <text class="header-date">{{today}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 模块一：考勤概况 ===== -->
+  <view class="overview-card">
+    <view class="overview-title-row">
+      <view class="overview-title-area">
+        <text class="overview-icon">📊</text>
+        <text class="overview-title">本月考勤概况</text>
+      </view>
+      <view class="today-badge {{todayStatus.allDone ? 'badge-done' : todayStatus.checkedIn ? 'badge-in' : 'badge-pending'}}" bindtap="goToClock">
+        <text>{{todayStatus.allDone ? '✓ 已完成' : todayStatus.checkedIn ? '● 已上班' : '○ 未打卡'}}</text>
+      </view>
+    </view>
+    <view class="overview-grid">
+      <view class="overview-item" bindtap="goToClock">
+        <text class="ov-num">{{overview.totalDays || overview.workDays || 0}}</text>
+        <text class="ov-label">出勤天数</text>
+      </view>
+      <view class="ov-sep"></view>
+      <view class="overview-item" bindtap="goToClock">
+        <text class="ov-num ov-success">{{overview.normalDays || 0}}</text>
+        <text class="ov-label">正常</text>
+      </view>
+      <view class="ov-sep"></view>
+      <view class="overview-item" bindtap="goToClock">
+        <text class="ov-num ov-warning">{{overview.lateCount || 0}}</text>
+        <text class="ov-label">迟到</text>
+      </view>
+      <view class="ov-sep"></view>
+      <view class="overview-item" bindtap="goToClock">
+        <text class="ov-num ov-error">{{overview.absentCount || 0}}</text>
+        <text class="ov-label">缺卡</text>
+      </view>
+    </view>
+
+    <!-- 今日打卡时间行 -->
+    <view class="today-times" wx:if="{{todayStatus.checkInTime || todayStatus.checkOutTime}}">
+      <view class="time-chip" wx:if="{{todayStatus.checkInTime}}">
+        <text class="chip-label">上班</text>
+        <text class="chip-val">{{todayStatus.checkInTime}}</text>
+      </view>
+      <view class="time-chip" wx:if="{{todayStatus.checkOutTime}}">
+        <text class="chip-label">下班</text>
+        <text class="chip-val">{{todayStatus.checkOutTime}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 模块二：待办事项 ===== -->
+  <view class="section todo-section">
+    <view class="section-header">
+      <text class="section-title">待办事项</text>
+    </view>
+
+    <!-- 待办列表 -->
+    <view class="todo-list">
+      <!-- 打卡待办：上午+下午未全部完成时显示 -->
+      <view class="todo-item todo-clock-item" wx:if="{{!todayStatus.allDone}}" bindtap="goToClock">
+        <view class="todo-icon-wrap todo-icon-blue">
+          <text class="todo-icon-text">🕐</text>
+        </view>
+        <view class="todo-info">
+          <text class="todo-title">今日打卡未完成</text>
+          <text class="todo-desc">点击前往打卡页面</text>
+        </view>
+        <view class="todo-action">
+          <text class="todo-btn todo-btn-blue">去打卡</text>
+        </view>
+      </view>
+
+      <!-- 投票待办：有待投票时显示 -->
+      <view class="todo-item todo-vote-item" wx:if="{{pendingVotes > 0}}" bindtap="goToVote">
+        <view class="todo-icon-wrap todo-icon-orange">
+          <text class="todo-icon-text">🗳</text>
+        </view>
+        <view class="todo-info">
+          <text class="todo-title">您有 {{pendingVotes}} 个待参与的投票</text>
+          <text class="todo-desc">请及时参与，避免错过截止时间</text>
+        </view>
+        <view class="todo-action">
+          <text class="todo-btn todo-btn-orange">去投票</text>
+        </view>
+      </view>
+
+      <!-- 全部完成时显示空状态 -->
+      <view class="todo-empty" wx:if="{{todayStatus.allDone && pendingVotes === 0}}">
+        <text class="todo-empty-icon">✅</text>
+        <text class="todo-empty-text">暂无待办事项</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 模块三：公告通知 ===== -->
+  <view class="section notice-section">
+    <view class="section-header">
+      <text class="section-title">公告通知</text>
+      <text class="section-more" wx:if="{{notices.length > 0}}" bindtap="goToNoticeDetail" data-id="{{notices[0].id}}">查看全部 ›</text>
+    </view>
+
+    <!-- 有公告 -->
+    <view wx:if="{{notices.length > 0}}">
+      <view
+        class="notice-item"
+        wx:for="{{notices}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToNoticeDetail"
+      >
+        <view class="notice-tag" style="background:{{item.typeColor}}">{{item.typeName}}</view>
+        <view class="notice-body">
+          <text class="notice-title">{{item.title}}</text>
+          <text class="notice-time">{{item.publishTime}}</text>
+        </view>
+        <text class="notice-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 无公告 -->
+    <view class="empty-notice" wx:else>
+      <text class="empty-icon">📢</text>
+      <text class="empty-text">暂无公告</text>
+    </view>
+  </view>
+
+</view>
